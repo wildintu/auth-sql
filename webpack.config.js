@@ -51,6 +51,10 @@ const clientConfig = {
                 'css-loader',
                 'sass-loader',
             ]
+        },
+        { 
+            test: /\.css$/,
+            loader: "style-loader!css-loader" 
         }
       ]
     },
@@ -62,5 +66,6 @@ const clientConfig = {
         path: path.resolve(__dirname, 'public/js')
     }
 };
+
 
 module.exports = [serverConfig, clientConfig];

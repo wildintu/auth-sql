@@ -1,36 +1,24 @@
-import * as React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Welcome from './Welcome';
+import Blogs from "./Blogs";
+import PostBlog from "./PostBlog";
+// import Blog from "./Blog";
+// import Detail from "./Detail"
 
-class App extends React.Component<IAppProps, IAppState> {
-	constructor(props: IAppProps) {
-		super(props);
-		this.state = {
-			name: null
-		};
-	}
+const App: React.FC<IAppProps> = props => {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/postblog" component={ PostBlog } />
+        {/* <Route exact path="/Blogs/:id/details" component={ Detail } />*/}
+        <Route exact path="/blogs" component={ Blogs } /> 
+        <Route path="/" component={ Welcome } />
+      </Switch>
+    </Router>
+  );
+};
 
-	async componentDidMount() {
-		try {
-			let r = await fetch('/api/hello');
-			let name = await r.json();
-			this.setState({ name });
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	render() {
-		return (
-			<main className="container my-5">
-				<h1 className="text-primary text-center">Hello {this.state.name}!</h1>
-			</main>
-		);
-	}
-}
-
-export interface IAppProps {}
-
-export interface IAppState {
-	name: string;
-}
+export interface IAppProps {};
 
 export default App;
