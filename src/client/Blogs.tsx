@@ -23,26 +23,27 @@ const Blogs: React.FC<IAppProps> = props => {
         let cardsArr = json.map((element,index) => {
             let Title: string = element.title;
             let Content: string = element.content;
-            // let Email: string = element.email;
-            // let UserId: number = element.userid;
+            let id: number = element.id;
             let FirstName: string = element.firstname;
             // let LastName: string =  element.lastname;
-            // let BlogId: string = element.blogid;
-            // let TagId: number = element.tagid;
-            // let TagName: string = element.tagName;
+            // let Email: string = element.email;
+            // let UserId: number = element.userid;
             let date: Date = new Date(element._created);
             let dateFormat = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
             return (
-                <Card className="my-5" key={index}>
+                <Container className='d-flex flex-column' key={index}> 
+                <Card className="my-5 mx-auto" style={{"maxWidth": "700px"}}>
+                    <Card.Img src="https://www.wikicelebs.com/wp-content/uploads/2020/03/Carole-Baskin-1.jpg" />
                     <Card.Body>
-                    <Card.Title as="h1" className="">{Title}</Card.Title>
-                    <Card.Text as="small">{dateFormat}</Card.Text>
-                    <Card.Text as="p" className="" style={{"marginTop": "10px"}}>{Content}</Card.Text>
+                    <Card.Title as="h1" className="text-center">{Title}</Card.Title>
+                    <Card.Text as="p" className="text-center">{dateFormat}</Card.Text>
+                    {/* <Card.Text as="p" className="" style={{"marginTop": "10px"}}>{Content}</Card.Text> */}
                     {/* <Card.Text as="p" className="">{FirstName}</Card.Text>
                     <Card.Text as="p" className="">{TagName}</Card.Text> */}
-                    {/* <Button as={Link} to={`/blogs/${id}`}>Details</Button> */}
                     </Card.Body>
+                    <Button as={Link} to={`/blogs/${id}`} className="mx-auto" style={{"marginBottom": "20px"}}>Read More</Button>
                 </Card>
+                </Container>
             );
         })
         setBlog(cardsArr);
@@ -54,9 +55,9 @@ const Blogs: React.FC<IAppProps> = props => {
     
     return (
         <div>
-        <Container>
+        <Container className='d-flex flex-column'>
         <h1 className='text-primary text-center'>Confessions of a Tiger Feeder</h1>
-        <Button as={Link} to={'/postblog'} variant="success">Post to Blog</Button>
+        <Button as={Link} to={'/postblog'} variant="success" className="mx-auto">Post to Blog</Button>
         {blog}
         </Container>
         </div>
@@ -71,6 +72,7 @@ export interface IBlogs {
     content: string;
     _created: string;
     firstname: string;
+    id: number;
     // tagName: string;
     // tagid: number;
     // authorid: number;

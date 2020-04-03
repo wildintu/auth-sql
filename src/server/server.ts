@@ -5,7 +5,7 @@ import * as passport from 'passport';
 import './middleware/localstrategy';
 import './middleware/bearerstrategy';
 
-import apiRouter from './routes';
+import routes from './routes';
 
 const app = express();
 
@@ -15,8 +15,8 @@ app.use(express.static(p));
 app.use(express.json());
 app.use(passport.initialize());
 
-app.use('/api', apiRouter);
-app.get(["/", "/blogs/:id","/blogs", "/postblog"], (req, res) => res.sendFile(path.join(__dirname, '../public', 'index.html')))
+app.use(routes);
+app.get(['/', '/blogs/:id','/blogs', '/postblog', '/blogs/:id/edit'], (req, res) => res.sendFile(path.join(__dirname, '../public', 'index.html')))
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port: ${port}`));

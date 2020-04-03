@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Fetch from "./Fetch";
-import { Container } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 import { IAppProps } from "./App";
 
 const PostBlog: React.FC<IAppProps> = props => {
@@ -23,7 +23,7 @@ const PostBlog: React.FC<IAppProps> = props => {
           title: title,
           content: content,
         },
-        "/blogs",
+        "/api/blogs",
         "POST"
       );
     }
@@ -31,38 +31,31 @@ const PostBlog: React.FC<IAppProps> = props => {
 
   return (
     <Container>
-    <form>
-      <div className="form-group col-sm-4">
-        <label htmlFor="name">Title</label>
-        <input
+    <Form>
+    <Form.Group className="form-group col-lg-4">
+        <Form.Label>Title</Form.Label>
+        <Form.Control
           type="text"
-          className="form-control"
           id="title"
-          value={title}
+          value={ title }
           onChange={e => handleChange(e.target.value, "title")}
         />
-      </div>
-      <div className="form-group col-sm-4">
-        <label htmlFor="msg">Content</label>
-        <input
+        <Form.Label style={{"marginTop": "25px"}}>Content</Form.Label>
+        <Form.Control as="textarea" rows="3"
           type="text"
-          className="form-control"
           id="content"
-          value={content}
-          onChange={e => handleChange(e.target.value, "content")}
+          value={ content }
+          onChange={e => handleChange((e.target as HTMLTextAreaElement).value, "content")}
         />
-      </div>
-      <Link to="/blogs">
-        <button
-          className="btn btn-primary ml-3"
+        </Form.Group>
+        </Form>
+        <Button as={Link} to={'/blogs'} className="btn btn-primary ml-3"
           onClick={() => {
             handleClick();
-          }}
-        >
-          Submit
-        </button>
-      </Link>
-    </form>
+          }}>Submit</Button>
+        <Button as={Link} to={`/blogs`}
+          className="btn btn-primary ml-3"
+          >Go Back</Button>  
     </Container>
   );
 };
