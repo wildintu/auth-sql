@@ -8,15 +8,15 @@ export const CreateToken = async (payload: IPayload) => {
     let tokenid: any = await DB.AccessTokens.insert(payload.userid);
     payload.accesstokenid = tokenid.insertId;
     payload.unique = crypto.randomBytes(32).toString('hex');
-    let token = await jwt.sign(payload.accesstokenid, config.auth.secret);
+    let token = await jwt.sign(payload, config.auth.secret);
     await DB.AccessTokens.update(payload.accesstokenid, token);
     return token;
 };
 
 export const ValidToken = async (token: string) => {
+    console.log(token);
     let payload: IPayload = <IPayload>jwt.decode(token);
     let [accesstokenid] = await DB.AccessTokens.findOne(payload.accesstokenid, token);
-    //default response structure [ { } ]
     if (!accesstokenid) {
         throw new Error('Invalid Token!');
     } else {

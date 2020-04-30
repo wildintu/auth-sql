@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import Fetch from "./Fetch";
 import { Container, Form, Button } from "react-bootstrap";
 import { IAppProps } from "./App";
@@ -38,14 +38,14 @@ const PostBlog: React.FC<IAppProps> = props => {
           type="text"
           id="title"
           value={ title }
-          onChange={e => handleChange(e.target.value, "title")}
+          onChange={(e: any) => handleChange(e.target.value, "title")}
         />
         <Form.Label style={{"marginTop": "25px"}}>Content</Form.Label>
         <Form.Control as="textarea" rows="3"
           type="text"
           id="content"
           value={ content }
-          onChange={e => handleChange((e.target as HTMLTextAreaElement).value, "content")}
+          onChange={(e: any) => handleChange((e.target as HTMLTextAreaElement).value, "content")}
         />
         </Form.Group>
         </Form>

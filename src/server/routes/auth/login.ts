@@ -12,7 +12,7 @@ router.post('/', passport.authenticate('local'), async (req: any, res, next) => 
                 token,
                 role: req.user.role,
                 userid: req.user.id
-            })
+            });
     } catch(e) {
         console.log(e);
         res.sendStatus(500);

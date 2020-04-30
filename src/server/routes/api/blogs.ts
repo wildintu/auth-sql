@@ -4,7 +4,7 @@ import { RequestHandler } from 'express-serve-static-core';
 
 const router = express.Router();
 
-const isAdmin: RequestHandler = (req: any, res, next) => {
+const isAdmin: RequestHandler = (req:any, res, next) => {
     if(!req.user || req.user.role !== 'admin') {
         return res.sendStatus(401);
     } else {
@@ -12,11 +12,7 @@ const isAdmin: RequestHandler = (req: any, res, next) => {
     }
 }
 
-router.get('/', (req, res, next) => {
-    res.json('Welcome to Feed Tigers!');
-});
-
-router.get('/blogs', async (req, res) => {
+router.get('/', async (req, res, next) => {
     try {
         let blogs = await DB.Blogs.getAllBlogs();
         res.json(blogs);
@@ -26,17 +22,18 @@ router.get('/blogs', async (req, res) => {
     }
 })
 
-router.get('/blogs/:id', isAdmin, async (req, res) => {
+router.get('/:id', isAdmin, async (req, res, next) => {
+    let id = parseInt(req.params.id, 10);
     try {
-        let blogs = await DB.Blogs.getOneBlog(parseInt(req.params.id, 10));
-        res.json(blogs[0]);
+        let blog = await DB.Blogs.getOneBlog(id);
+        res.json(blog[0]);
     } catch(error) {
         console.log(error);
         res.sendStatus(500);
     }
 })
 
-router.post('/blogs', async (req, res) => {
+router.post('/', async (req, res) => {
     let title = req.body.title;
     let content = req.body.content;
     let userid = parseInt(req.body.userid, 10);
@@ -49,7 +46,7 @@ router.post('/blogs', async (req, res) => {
     }
 })
 
-router.put('/blogs/:id?', async (req, res) => {
+router.put('/:id?', async (req, res) => {
     let title = req.body.title;
     let content = req.body.content;
     let id = parseInt(req.params.id, 10);
@@ -63,7 +60,7 @@ router.put('/blogs/:id?', async (req, res) => {
     }
 })
 
-router.delete('/blogs/:id?', async (req, res) => {
+router.delete('/:id?', async (req, res) => {
     let id = parseInt(req.params.id, 10);
     try {
         let blogs = await DB.Blogs.deleteBlog(id);

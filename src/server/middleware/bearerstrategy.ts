@@ -8,6 +8,7 @@ passport.use(new BearerStrategy.Strategy(async (token, done) => {
     try {
         let payload = await ValidToken(token);
         let [user] = await DB.Users.fineOneById(payload.userid);
+        console.log(user)
         if (user) {
             done(null, user);
         } else {

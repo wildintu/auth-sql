@@ -70,14 +70,14 @@ let Edit: React.FC<IEditProps> =  ({
               type="text"
               id="title"
               value={ title }
-              onChange={e => handleChange(e.target.value, "title")}
+              onChange={(e: any) => handleChange(e.target.value, "title")}
             />
             <Form.Label style={{"marginTop": "25px"}}>Content</Form.Label>
             <Form.Control as="textarea" rows="3"
               type="text"
               id="content"
               value={ content }
-              onChange={e => handleChange((e.target as HTMLTextAreaElement).value, "content")}
+              onChange={(e: any) => handleChange((e.target as HTMLTextAreaElement).value, "content")}
               />
               </Form.Group>
           </Form>
