@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.get('/:id', isAdmin, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     let id = parseInt(req.params.id, 10);
     try {
         let blog = await DB.Blogs.getOneBlog(id);
@@ -32,6 +32,17 @@ router.get('/:id', isAdmin, async (req, res, next) => {
         res.sendStatus(500);
     }
 })
+
+// router.get('/:id', isAdmin, async (req, res, next) => {
+//     let id = parseInt(req.params.id, 10);
+//     try {
+//         let blog = await DB.Blogs.getOneBlog(id);
+//         res.json(blog[0]);
+//     } catch(error) {
+//         console.log(error);
+//         res.sendStatus(500);
+//     }
+// })
 
 router.post('/', async (req, res) => {
     let title = req.body.title;
