@@ -6,6 +6,8 @@ import Blogs from "./Blogs";
 import PostBlog from "./PostBlog";
 import ReadMore from "./ReadMore";
 import Edit from "./Edit";
+import Admin from "./admin/Admin";
+import Login from "./admin/Login";
 
 const App: React.FC<IAppProps> = props => {
   return (
@@ -14,7 +16,9 @@ const App: React.FC<IAppProps> = props => {
         <Route exact path="/postblog" component={ PostBlog } />
         <Route exact path="/blogs/:id" component={ ReadMore } />
         <Route exact path="/blogs/:id/edit" component={ Edit } />
-        <Route exact path="/blogs" component={ Blogs } /> 
+        <Route exact path="/blogs" component={ Blogs } />
+        <Route exact path="/admin" component={ Admin } />
+        <Route exact path="/login" component={ Login } />
         <Route path="/" component={ Welcome } />
       </Switch>
     </Router>
